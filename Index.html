@@ -85,6 +85,63 @@
             font-weight: bold;
         }
 
+        /* --- ESTILOS DE LA ECUACIÓN DE DIRAC --- */
+        .dirac-equation {
+            font-size: 1.5em;
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #800f2f;
+            text-align: center;
+        }
+
+        .dirac-visual {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .particle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            position: absolute;
+            animation: orbit 4s infinite ease-in-out;
+        }
+
+        .particle-1 {
+            background-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+            animation-name: orbit1;
+        }
+
+        .particle-2 {
+            background-color: #ff99ac;
+            box-shadow: 0 0 20px #ff99ac;
+            animation-name: orbit2;
+        }
+
+        @keyframes orbit1 {
+            0% { transform: translateX(50px) scale(1); z-index: 2; }
+            25% { transform: translateX(0px) scale(0.8); z-index: 1; }
+            50% { transform: translateX(-50px) scale(1); z-index: 2; }
+            75% { transform: translateX(0px) scale(1.2); z-index: 3; }
+            100% { transform: translateX(50px) scale(1); z-index: 2; }
+        }
+
+        @keyframes orbit2 {
+            0% { transform: translateX(-50px) scale(1); z-index: 2; }
+            25% { transform: translateX(0px) scale(1.2); z-index: 3; }
+            50% { transform: translateX(50px) scale(1); z-index: 2; }
+            75% { transform: translateX(0px) scale(0.8); z-index: 1; }
+            100% { transform: translateX(-50px) scale(1); z-index: 2; }
+        }
+        /* --------------------------------------- */
+
         /* Animación de Envoltura de Regalo */
         .wrap-animation {
             transform: scale(0.01) rotate(720deg);
@@ -179,6 +236,22 @@
             <p id="memory-feedback" style="color: green; display: none; text-align: center; margin-top: 10px;">¡Respuestas guardadas!</p>
         </div>
 
+        <div class="card">
+            <h2>Nuestra Ecuación</h2>
+            <p>En la física, esta fórmula predijo la existencia de la antimateria: la idea de que para cada partícula en el universo, existe una contraparte exacta que la complementa perfectamente.</p>
+            
+            <div class="dirac-equation">
+                (i&hbar;&gamma;<sup>&mu;</sup>&part;<sub>&mu;</sub> - mc)&psi; = 0
+            </div>
+            
+            <p style="font-size: 0.9em; font-style: italic; text-align: center;">"Si dos sistemas interactúan entre sí durante cierto periodo de tiempo y luego se separan, ya no pueden describirse como dos sistemas distintos, sino como un único sistema. Lo que le ocurre a uno, sigue afectando al otro."</p>
+            
+            <div class="dirac-visual">
+                <div class="particle particle-1"></div>
+                <div class="particle particle-2"></div>
+            </div>
+        </div>
+
         <button onclick="triggerFinale()" style="background-color: #800f2f; margin-bottom: 50px;">Tengo una sorpresa más...</button>
     </div>
 
@@ -215,14 +288,10 @@
 
             const videoId = extractVideoID(linkInput);
             if (videoId) {
-                // Guarda la canción en la lista
                 savedSongs.push(`🎵 ${nameInput} (Sección de YouTube)`);
-                
-                // Actualiza y muestra el iframe
                 player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
                 player.style.display = 'block';
 
-                // Limpia los campos
                 document.getElementById('song-name').value = '';
                 document.getElementById('yt-link').value = '';
             } else {
@@ -263,10 +332,10 @@
             const birthdayScreen = document.getElementById('birthday-screen');
             const songUl = document.getElementById('song-ul');
 
-            // 1. Efecto visual que "envuelve" la página
+            // Efecto visual que "envuelve" la página
             mainContent.classList.add('wrap-animation');
 
-            // 2. Poblar la lista final de canciones
+            // Poblar la lista final de canciones
             songUl.innerHTML = '';
             if(savedSongs.length === 0) {
                 songUl.innerHTML = '<li>Aún no guardaste canciones, ¡pero nuestra playlist sigue creciendo!</li>';
@@ -278,11 +347,11 @@
                 });
             }
 
-            // 3. Esperar a que termine la animación para mostrar el cumpleaños
+            // Esperar a que termine la animación para mostrar el cumpleaños
             setTimeout(() => {
                 mainContent.style.display = 'none';
                 birthdayScreen.classList.add('show-birthday');
-            }, 1200); // 1.2 segundos para sincronizar con la transición CSS
+            }, 1200); 
         }
     </script>
 </body>
